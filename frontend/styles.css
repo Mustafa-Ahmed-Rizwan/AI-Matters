@@ -1,0 +1,1288 @@
+/* ============================================================================
+   ARENA2036 HELP CENTER - MAIN STYLESHEET
+   ============================================================================
+   
+   Table of Contents:
+   1. Reset and Base Styles
+   2. Header and Navigation
+   3. Language Switcher
+   4. Hero Section
+   5. Search Components
+   6. Quick Help Tags
+   7. Chat Flow System
+   8. Message Components
+   9. Answer Display
+   10. Loading States
+   11. Autocomplete & Suggestions
+   12. Related Questions
+   13. Feedback System
+   14. Sources Display
+   15. Image Display
+   16. Input States and Controls
+   17. Animations and Keyframes
+   18. Responsive Design
+   
+   ============================================================================ */
+
+/* ============================================================================
+   1. RESET AND BASE STYLES
+   ============================================================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f7f9fc;
+    padding-bottom: 120px; /* Space for fixed chat input */
+}
+
+/* ============================================================================
+   2. HEADER AND NAVIGATION
+   ============================================================================ */
+
+.header {
+    background-color: #fff;
+    border-bottom: 1px solid #e1e3e5;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    /* smaller edge gaps so items sit closer to the corners */
+    padding: 0 12px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* logo left, langs right */
+    gap: 12px;
+    /* ensure consistent alignment across browsers */
+    align-content: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 18px;
+    color: #1a1a1a;
+    margin: 0;                  /* REMOVE margin-right:auto so it won't stretch */
+    margin-left: 6px;           /* small space from left corner */
+    white-space: nowrap;        /* keep the logo + text on one line */
+}
+
+.logo-image {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.logo-text {
+    color: #1a1a1a;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* ============================================================================
+   3. HERO SECTION
+   ============================================================================ */
+
+/* Main Content */
+.main {
+    min-height: calc(100vh - 64px);
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    padding: 80px 24px 60px;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.hero-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 40px;
+    letter-spacing: -0.02em;
+    transition: all 0.3s ease;
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+/* ============================================================================
+   4. SEARCH COMPONENTS
+   ============================================================================ */
+
+/* Search Container */
+.search-container {
+    margin-bottom: 40px;
+    transition: all 0.3s ease;
+    animation: fadeInUp 1s ease-out 0.4s both;
+}
+
+.search-wrapper {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.search-icon {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #6b7280;
+    pointer-events: none;
+    z-index: 2; /* Add this to ensure it stays above other elements */
+}
+
+.search-input {
+    width: 100%;
+    height: 56px;
+    padding: 16px 60px 16px 56px;
+    font-size: 16px;
+    border: 2px solid #e1e3e5;
+    border-radius: 12px;
+    background-color: #fff;
+    color: #1a1a1a;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.search-input:focus {
+    border-color: #1BA3D9;
+    box-shadow: 0 0 0 3px rgba(27, 163, 217, 0.1);
+    transform: scale(1.02);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.search-input::placeholder {
+    color: #9ca3af;
+}
+
+.search-button {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: #1BA3D9;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.search-button:hover {
+    background-color: #0d8bb8;
+    transform: translateY(-50%) scale(1.05);
+}
+
+.search-button:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+/* ============================================================================
+   5. QUICK HELP TAGS
+   ============================================================================ */
+
+/* Quick Help Tags */
+.quick-help {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.quick-help.hidden {
+  opacity: 0;
+  pointer-events: none;
+  height: 0;           /* collapse visually (prevents overlap) */
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  transition: opacity 0.18s ease, height 0.18s ease, margin 0.18s ease, padding 0.18s ease;
+  z-index: 1; /* keep it behind the suggestions-dropdown (which is z-index:1000) */
+}
+
+.help-tag {
+    background-color: #fff;
+    border: 1px solid #e1e3e5;
+    border-radius: 24px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4b5563;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+}
+.help-tag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+}
+.help-tag:hover::before {
+    left: 100%;
+}
+
+.help-tag:hover {
+    background-color: #1BA3D9;
+    color: white;
+    border-color: #1BA3D9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27, 163, 217, 0.2);
+}
+
+/* ============================================================================
+   6. CHAT FLOW SYSTEM
+   ============================================================================ */
+
+/* Chat Flow Section */
+.chat-flow {
+    background-color: #f7f9fc;
+    min-height: calc(100vh - 64px);
+    padding: 40px 24px 140px;
+    animation: slideUp 0.3s ease;
+}
+
+.chat-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.conversation-history {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 120px;
+}
+
+/* Fixed Chat Input */
+.fixed-chat-input {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, rgba(247, 249, 252, 0) 0%, rgba(247, 249, 252, 0.95) 20%, rgba(247, 249, 252, 1) 100%);
+    padding: 20px 24px 24px;
+    z-index: 50;
+    backdrop-filter: blur(10px);
+}
+
+.chat-input-container {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    gap: 12px;
+    background: white;
+    border: 2px solid #e1e3e5;
+    border-radius: 16px;
+    padding: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+.chat-input {
+    flex: 1;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    outline: none;
+    background: transparent;
+    color: #1a1a1a;
+}
+
+.chat-input::placeholder {
+    color: #9ca3af;
+}
+
+.chat-send-button {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #1BA3D9 0%, #1bb8e8 100%);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.chat-send-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px rgba(27, 163, 217, 0.4);
+}
+
+.chat-send-button:active {
+    transform: scale(0.95);
+}
+
+/* ============================================================================
+   7. MESSAGE COMPONENTS
+   ============================================================================ */
+
+/* Chat Message Box */
+.chat-message {
+    background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
+    border: 1px solid #e1e5e9;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: messageSlideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    transform: translateY(0);
+}
+.chat-message::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #1BA3D9, #1bb8e8);
+    animation: progressBar 0.8s ease-out 0.2s both;
+}
+
+.chat-message::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #1BA3D9, #1bb8e8);
+    border-radius: 16px 16px 0 0;
+}
+
+.chat-message:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Question Display */
+.question-display {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+    position: relative;
+    overflow: hidden;
+}
+
+.question-display::before {
+    content: '❓';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    opacity: 0.3;
+}
+
+/* ============================================================================
+   8. ANSWER DISPLAY
+   ============================================================================ */
+
+/* Answer Section */
+.answer-section {
+    margin-top: 16px;
+}
+
+.answer-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #f1f3f4;
+    position: relative;
+}
+
+.answer-header .answer-icon {
+    color: #1BA3D9;
+    font-size: 20px;
+}
+
+.answer-header .answer-label {
+    font-weight: 600;
+    color: #1a1a1a;
+    font-size: 16px;
+    flex: 1;
+}
+
+/* Answer Content */
+.answer-content {
+    line-height: 1.7;
+    color: #2c3e50;
+    font-size: 15px;
+}
+
+.answer-content h1,
+.answer-content h2,
+.answer-content h3,
+.answer-content h4 {
+    color: #1a1a1a;
+    margin: 20px 0 12px 0;
+    font-weight: 600;
+}
+
+.answer-content h1 {
+    font-size: 24px;
+    border-bottom: 2px solid #1BA3D9;
+    padding-bottom: 8px;
+}
+
+.answer-content h2 {
+    font-size: 20px;
+    color: #2c3e50;
+}
+
+.answer-content h3 {
+    font-size: 18px;
+    color: #34495e;
+}
+
+.answer-content p {
+    margin: 14px 0;
+}
+
+.answer-content ul,
+.answer-content ol {
+    margin: 16px 0;
+    padding-left: 24px;
+}
+
+.answer-content li {
+    margin: 8px 0;
+    line-height: 1.6;
+}
+
+.answer-content code {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 3px 8px;
+    border-radius: 6px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 14px;
+    color: #e53e3e;
+    border: 1px solid #e1e3e5;
+}
+
+.answer-content pre {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 1px solid #e1e3e5;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    overflow-x: auto;
+    position: relative;
+}
+
+.answer-content pre code {
+    background: none;
+    padding: 0;
+    color: inherit;
+    font-size: 14px;
+    border: none;
+}
+
+.answer-content blockquote {
+    border-left: 4px solid #1BA3D9;
+    padding-left: 20px;
+    margin: 20px 0;
+    color: #6b7280;
+    font-style: italic;
+    background: rgba(27, 163, 217, 0.05);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+}
+
+.answer-content a {
+    color: #1BA3D9;
+    text-decoration: underline;
+    text-decoration-color: rgba(27, 163, 217, 0.3);
+    transition: all 0.2s ease;
+}
+
+.answer-content a:hover {
+    text-decoration-color: #1BA3D9;
+    color: #0d8bb8;
+}
+
+.answer-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.answer-content th,
+.answer-content td {
+    border: 1px solid #e1e3e5;
+    padding: 12px 16px;
+    text-align: left;
+}
+
+.answer-content th {
+    background: linear-gradient(135deg, #1BA3D9 0%, #1bb8e8 100%);
+    color: white;
+    font-weight: 600;
+}
+
+/* ============================================================================
+   9. LOADING STATES
+   ============================================================================ */
+
+/* Loading State */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    position: relative;
+}
+.loading-shimmer {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite linear;
+    border-radius: 4px;
+    height: 20px;
+    margin: 10px 0;
+}
+
+.loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid #e1e3e5;
+    border-radius: 50%;
+    border-top-color: #1BA3D9;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+}
+
+.loading-text {
+    color: #6b7280;
+    font-size: 14px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* ============================================================================
+   10. AUTOCOMPLETE & SUGGESTIONS
+   ============================================================================ */
+
+/* Enhanced Autocomplete Suggestions */
+.suggestions-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #e1e3e5;
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+    display: none;
+    max-height: 300px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+/* Chat Input Autocomplete Suggestions */
+.chat-suggestions-dropdown {
+    position: absolute;
+    bottom: 100%;
+    left: 8px;
+    right: 8px;
+    background-color: #fff;
+    border: 1px solid #e1e3e5;
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+    display: none;
+    max-height: 280px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    margin-bottom: 8px;
+}
+
+.chat-suggestions-dropdown .suggestion-item {
+    padding: 12px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #f1f3f4;
+    color: #4b5563;
+    font-size: 14px;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    box-sizing: border-box;
+}
+
+.chat-suggestions-dropdown .suggestion-item:first-child {
+    border-radius: 12px 12px 0 0;
+}
+
+.chat-suggestions-dropdown .suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.chat-suggestions-dropdown .suggestion-item:hover,
+.chat-suggestions-dropdown .suggestion-item.selected {
+    background-color: #e6f7ff;
+    color: #1BA3D9;
+}
+
+.chat-suggestions-dropdown .suggestion-item.selected {
+    background: linear-gradient(135deg, #1BA3D9 0%, #1bb8e8 100%);
+    color: white;
+}
+
+.virtual-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.virtual-content {
+    position: relative;
+}
+
+.suggestion-item {
+    padding: 12px 20px;
+    cursor: pointer;
+    border-bottom: 1px solid #f1f3f4;
+    color: #4b5563;
+    font-size: 14px;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    box-sizing: border-box;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover,
+.suggestion-item.selected {
+    background-color: #e6f7ff;
+    color: #1BA3D9;
+}
+
+.suggestion-item.selected {
+    background: linear-gradient(135deg, #1BA3D9 0%, #1bb8e8 100%);
+    color: white;
+}
+
+.suggestion-icon {
+    opacity: 0.6;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.suggestion-item.selected .suggestion-icon {
+    opacity: 0.9;
+}
+
+.suggestion-text {
+    flex: 1;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.suggestion-text mark {
+    background-color: #fef3cd;
+    color: #856404;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.no-suggestions {
+    padding: 16px 20px;
+    color: #6b7280;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* ============================================================================
+   11. RELATED QUESTIONS
+   ============================================================================ */
+
+/* Related Questions Section */
+.related-questions-section {
+    margin-top: 40px;
+    padding: 24px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 16px;
+    border: 1px solid #e1e3e5;
+}
+
+.related-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.related-title::before {
+    content: '💡';
+    font-size: 20px;
+}
+
+.related-questions-list {
+    display: grid;
+    gap: 12px;
+}
+
+.related-question {
+    background: white;
+    border: 1px solid #e1e3e5;
+    border-radius: 12px;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 15px;
+    color: #4b5563;
+    text-align: left;
+    font-weight: 500;
+}
+
+.related-question:hover {
+    border-color: #1BA3D9;
+    background: linear-gradient(135deg, #e6f7ff 0%, #f0fbff 100%);
+    color: #1a1a1a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(27, 163, 217, 0.15);
+}
+
+.related-question::before {
+    content: "❓";
+    margin-right: 12px;
+}
+
+/* ============================================================================
+   12. FEEDBACK SYSTEM
+   ============================================================================ */
+
+/* Answer Feedback */
+.answer-feedback {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 2px solid #f1f3f4;
+}
+
+.feedback-text {
+    font-size: 14px;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.feedback-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.feedback-btn {
+    width: 38px;
+    height: 38px;
+    border: 2px solid #e1e3e5;
+    border-radius: 10px;
+    background-color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+.feedback-btn:hover {
+    border-color: #1BA3D9;
+    background-color: #e6f7ff;
+    transform: scale(1.1);
+}
+
+.feedback-btn.active {
+    background: linear-gradient(135deg, #1BA3D9 0%, #1bb8e8 100%);
+    border-color: #1BA3D9;
+    color: white;
+}
+
+/* ============================================================================
+   13. SOURCES DISPLAY
+   ============================================================================ */
+
+/* Sources Section */
+.sources-section {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #f1f3f4;
+}
+
+.sources-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sources-title::before {
+    content: '🔗';
+    font-size: 16px;
+}
+
+.sources-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.source-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 1px solid #e1e3e5;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #4b5563;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.source-item:hover {
+    background: linear-gradient(135deg, #1BA3D9 0%, #1bb8e8 100%);
+    color: white;
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(27, 163, 217, 0.3);
+}
+
+.source-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+/* ============================================================================
+   14. IMAGE DISPLAY
+   ============================================================================ */
+
+/* Add to styles.css after .answer-content styles */
+.answer-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================================================
+   15. INPUT STATES AND CONTROLS
+   ============================================================================ */
+
+/* Stop Generation Button */
+.stop-generation-btn {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+    margin-left: auto;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stop-generation-btn:hover {
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.stop-generation-btn:active {
+    transform: scale(0.95);
+}
+
+.stop-generation-btn svg {
+    transition: transform 0.2s ease;
+}
+
+.stop-generation-btn:hover svg {
+    transform: scale(1.1);
+}
+
+/* Disabled Input States */
+.search-wrapper.disabled,
+.chat-input-container.disabled {
+    opacity: 0.6;
+    pointer-events: none;
+    position: relative;
+}
+
+.search-wrapper.disabled::after,
+.chat-input-container.disabled::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: inherit;
+    z-index: 10;
+}
+
+.search-input:disabled,
+.chat-input:disabled {
+    background-color: #f8f9fa;
+    color: #6b7280;
+    cursor: not-allowed;
+}
+
+.search-button:disabled,
+.chat-send-button:disabled {
+    background: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.search-button:disabled:hover,
+.chat-send-button:disabled:hover {
+    background: #e5e7eb;
+    transform: none !important;
+    box-shadow: none !important;
+}
+/* ============================================================================
+   16. ANIMATIONS AND KEYFRAMES
+   ============================================================================ */
+
+/* Small caret effect for typewriter areas (not used by JS directly, but can be toggled) */
+.typewriter-caret {
+    display: inline-block;
+    width: 10px;
+    height: 1.2em;
+    margin-left: 6px;
+    background: linear-gradient(90deg, #1BA3D9, #1bb8e8);
+    animation: caret-blink 1s steps(2, start) infinite;
+    vertical-align: middle;
+    border-radius: 2px;
+}
+
+@keyframes caret-blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes messageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes progressBar {
+    0% { width: 0%; }
+    100% { width: 100%; }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+@keyframes gentleBounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-4px);
+    }
+    60% {
+        transform: translateY(-2px);
+    }
+}
+
+@keyframes softGlow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(27, 163, 217, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(27, 163, 217, 0.5);
+    }
+}
+
+/* ============================================================================
+   17. RESPONSIVE DESIGN
+   ============================================================================ */
+
+@media (max-width: 768px) {
+    .header-container {
+        padding: 0 10px;      /* slightly smaller side padding */
+        height: 56px;
+    }
+
+    .logo-image { height: 28px; }
+    .logo-text { font-size: 16px; }
+
+    .hero {
+        padding: 60px 16px 40px;
+    }
+
+    .hero-title {
+        font-size: 36px;
+        margin-bottom: 32px;
+    }
+
+    .search-input {
+        height: 52px;
+        font-size: 16px;
+        padding: 14px 56px 14px 52px;
+    }
+
+    .search-icon {
+        left: 16px;
+        font-size: 16px;
+    }
+
+    .search-button {
+        width: 36px;
+        height: 36px;
+        right: 8px;
+    }
+
+    .chat-flow {
+        padding: 24px 16px 140px;
+    }
+
+    .chat-message {
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .question-display {
+        font-size: 16px;
+        padding: 16px 20px;
+    }
+
+    .fixed-chat-input {
+        padding: 16px;
+    }
+
+    .chat-input-container {
+        padding: 6px;
+    }
+
+    .chat-send-button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .related-questions-list {
+        grid-template-columns: 1fr;
+    }
+
+    .chat-suggestions-dropdown {
+        max-height: 240px;
+    }
+    
+    .stop-generation-btn {
+        padding: 4px 8px;
+        font-size: 11px;
+        gap: 4px;
+    }
+    
+    .stop-generation-btn svg {
+        width: 14px;
+        height: 14px;
+    }
+    
+
+}
+
+@media (max-width: 480px) {
+    .header-container {
+        padding: 0 8px;
+        height: 52px;
+        gap: 8px;
+    }
+    
+    .hero-title {
+        font-size: 28px;
+    }
+
+    /* keep the text, but reduce size to avoid wrapping */
+    .logo-text {
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .logo-image { height: 24px; }
+
+    .chat-message {
+        padding: 16px;
+    }
+
+    .suggestion-item {
+        font-size: 13px;
+        min-height: 40px;
+        padding: 10px 16px;
+    }
+    
+    .chat-suggestions-dropdown {
+        left: 6px;
+        right: 6px;
+        max-height: 200px;
+    }
+    
+    .stop-generation-btn {
+        padding: 3px 6px;
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 360px) {
+    .logo-text { font-size: 13px; }
+    .logo-image { height: 22px; }
+}

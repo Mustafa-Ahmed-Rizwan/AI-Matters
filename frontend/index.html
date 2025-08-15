@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Matters Help Center</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.0/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css"
+    />
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-container">
+        <div class="logo">
+          <img
+            src="Ai-matters-logo.webp"
+            alt="Arena2036 Logo"
+            class="logo-image"
+          />
+          <span class="logo-text">Help Center</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="hero" id="heroSection">
+        <div class="hero-container">
+          <h1 class="hero-title">How can we help?</h1>
+          <div class="search-container">
+            <div class="search-wrapper">
+              <span class="search-icon">🔍</span>
+              <input
+                type="text"
+                id="searchInput"
+                placeholder="Search for answers..."
+                class="search-input"
+                autocomplete="off"
+                autocapitalize="on"
+                autocorrect="on"
+                spellcheck="true"
+              />
+              <button id="searchButton" class="search-button">↵</button>
+            </div>
+          </div>
+
+          <div class="quick-help" id="quickHelpContainer">
+            <div id="quickHelpLoading" class="loading-state">
+              <div class="loading-spinner"></div>
+              <p class="loading-text">Loading suggestions...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chat Flow Container -->
+      <section class="chat-flow" id="chatFlow" style="display: none">
+        <div class="chat-container">
+          <div id="conversationHistory" class="conversation-history"></div>
+
+          <!-- Fixed Chat Input at Bottom -->
+          <div class="fixed-chat-input">
+            <div class="chat-input-container">
+              <input
+                type="text"
+                id="chatInput"
+                placeholder="Ask a follow-up question..."
+                class="chat-input"
+              />
+              <button id="chatSendButton" class="chat-send-button">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                  <path
+                    fill="currentColor"
+                    d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Related Questions Section -->
+          <div
+            id="relatedQuestionsSection"
+            class="related-questions-section"
+            style="display: none"
+          >
+            <h3 class="related-title">You can also ask</h3>
+            <div id="relatedQuestionsList" class="related-questions-list"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
