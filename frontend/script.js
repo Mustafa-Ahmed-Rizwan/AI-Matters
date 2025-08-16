@@ -1005,6 +1005,7 @@ async function renderAnswerInMessage(answerSection, markdownText, sources, quest
       abortNotice.className = 'answer-content';
       abortNotice.innerHTML = `<blockquote>Output was stopped.</blockquote>`;
       answerSection.appendChild(abortNotice);
+
       const fullReveal = document.createElement('div');
       fullReveal.className = 'answer-content';
       fullReveal.innerHTML = finalHtml;
@@ -1013,6 +1014,30 @@ async function renderAnswerInMessage(answerSection, markdownText, sources, quest
       answerSection.querySelectorAll('pre code').forEach((block) => {
         try { hljs.highlightElement(block); } catch (e) { /* ignore */ }
       });
+
+      // make sure related questions UI shows a loading state (defensive)
+      try {
+        if (relatedQuestionsSection) relatedQuestionsSection.style.display = "block";
+        if (relatedQuestionsList) {
+          relatedQuestionsList.innerHTML = `
+            <div class="loading-state">
+              <div class="loading-spinner"></div>
+              <p class="loading-text">Loading related questions...</p>
+            </div>
+          `;
+        }
+      } catch (uiErr) {
+        console.warn('UI update for related questions failed:', uiErr);
+      }
+
+      // --- NEW: trigger the related-questions endpoint when user aborts ---
+      try {
+        // call it (errors are logged inside loadRelatedQuestions itself)
+        loadRelatedQuestions(question);
+      } catch (e) {
+        console.warn('Failed to load related questions after abort:', e);
+      }
+
       scrollToBottom();
     } else {
       console.error('Error during typewriting:', err);

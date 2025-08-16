@@ -9,5 +9,8 @@ wheels/
 # Virtual environments
 .venv
 
-vector_db/
-vector_db_2/
+vector_db3/
+
+# Environment files
+.env
+*.env

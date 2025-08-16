@@ -77,12 +77,12 @@ device = "cuda" if __import__('torch').cuda.is_available() else "cpu"
 
 embeddings = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-mpnet-base-v2",
-    model_kwargs={"device": device, "trust_remote_code": False},
-    encode_kwargs={"normalize_embeddings": True}   # <- MUST match how you built the DB
+    model_kwargs={"device": device},  # Remove trust_remote_code
+    encode_kwargs={"normalize_embeddings": True}
 )
 
 vectorstore = Chroma(
-    persist_directory="vector_db_2",
+    persist_directory="vector_db3",
     collection_name="ai_matters",
     embedding_function=embeddings
 )
@@ -556,7 +556,7 @@ async def query_assistant(request: Request, question: str):
 
         retriever = vectorstore.as_retriever(
             search_type="mmr",
-            search_kwargs={"k":5, "fetch_k":50, "lambda_mult":0.7}
+            search_kwargs={"k":5, "fetch_k":15, "lambda_mult":0.7}
         )
         
         def _correct(tok: str) -> str:
